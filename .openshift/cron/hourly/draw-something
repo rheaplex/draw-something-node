@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PATH=$PATH:$OPENSHIFT_DATA_DIR/usr/bin
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OPENSHIFT_DATA_DIR/usr/lib64
+
+# Run every other hour during the day, server time
+
+HOUR=$(date +%H)
+
+if (( HOUR >= 9 && HOUR <= 21 && HOUR % 2 )); then
+    node $OPENSHIFT_REPO_DIR/bin/run.js \
+         $DRAW_SOMETHING_MONGO_URI
+fi

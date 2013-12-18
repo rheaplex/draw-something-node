@@ -1,5 +1,3 @@
-#!/bin/env node
-
 // Copyright 2013 Rob Myers <rob@robmyers.org>
 //     
 // This program is free software: you can redistribute it and/or modify
@@ -15,16 +13,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"use strict";
+var draw_something = require('../lib/draw_something.js');
 
-var http = require('http');
+var mongo_url = process.argv[2];
 
-var host = process.env.OPENSHIFT_NODEJS_IP;
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080
-
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('draw-something. See http://robmyers.org/draw-something for details.\n');
-}).listen(port, host);
-
-console.log('Server running at http://' + host + ":" + port + "/");
+draw_something.draw_something(mongo_url);
